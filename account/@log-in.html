@@ -181,35 +181,86 @@
   </div>
 
   <script>
-    // Lista de usuarios válidos y sus redirecciones
-    const users = {
-      "test123@mcstellar.com": {
-        password: "stellarapptest123",
-        redirect: "/stellar-app/@me"
-      },
-      "creador@mcstellar.com": {
-        password: "creador456",
-        redirect: "creador.html"
-      },
-      "invitado@mcstellar.com": {
-        password: "guest789",
-        redirect: "invitado.html"
+  let users = {};
+
+  const URL_USUARIOS = "https://database.mcstellarstudio.com/data/usuarios.js"; 
+  const URL_EXITO = "https://app.mcstellarstudio.com/@me"; // ✅ Login exitoso
+  const URL_ERROR = "https://www.mcstellarstudio.com/error/"; // ❌ Login fallido
+
+  // Función para cargar los usuarios desde un archivo JS remoto
+  function loadRemoteUsers(url) {
+    const existing = document.querySelector(`script[src^="${url}"]`);
+    if (existing) existing.remove(); // Eliminar script anterior
+
+    const script = document.createElement('script');
+    script.src = url + "?_=" + new Date().getTime(); // Cache busting
+    script.onload = () => {
+      if (window.remoteUsers) {
+        users = window.remoteUsers;
+        console.log("Usuarios actualizados:", users);
       }
     };
+    script.onerror = () => {
+      console.error("Error al cargar usuarios.");
+    };
+    document.head.appendChild(script);
+  }
 
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-      e.preventDefault(); // evita que el formulario recargue la página
+  // Cargar usuarios inicialmente
+  loadRemoteUsers(URL_USUARIOS);
+  // Actualizar cada 10 segundos
+  setInterval(() => loadRemoteUsers(URL_USUARIOS), 10000);
+
+  // Cookies
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+  }
+
+  function getCookie(name) {
+    const cname = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i].trim();
+      if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
+    }
+    return "";
+  }
+
+  // Verificar si ya hay sesión activa
+  function checkSession() {
+    const userEmail = getCookie("session_user");
+    if (userEmail && users[userEmail]) {
+      // Redirige automáticamente si ya tiene sesión
+      window.location.href = users[userEmail].redirect || URL_EXITO;
+    }
+  }
+
+  // Esperar a que cargue el DOM
+  document.addEventListener("DOMContentLoaded", () => {
+    checkSession();
+
+    const form = document.getElementById("loginForm");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
       const email = document.getElementById("email").value.trim().toLowerCase();
       const password = document.getElementById("password").value.trim();
 
       if (users[email] && users[email].password === password) {
-        // Redirige según el usuario
-        window.location.href = users[email].redirect;
+        setCookie("session_user", email, 7);
+        const userRedirect = users[email].redirect || URL_EXITO;
+        window.location.href = userRedirect; // redirige al redirect específico del usuario
       } else {
-        alert("Correo o contraseña incorrectos.");
+        window.location.href = URL_ERROR; // redirige a URL de error
       }
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
