@@ -1,162 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bienvenido</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bienvenido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Fuente Outfit -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+    body {
+      min-height: 100vh;
+      font-family: 'Outfit', sans-serif;
+      background: #fef6f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 40px;
+    }
 
-    body {
-      background-color: #fdf6f0;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 40px 20px;
-      overflow-x: hidden;
-    }
+    .video-block {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      background-image: url('https://images.unsplash.com/photo-1601582581597-8a3d2e7df2c2?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      border-radius: 25px;
+      border: 3px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease;
+      position: relative;
+      overflow: hidden;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    }
 
-    /* Bienvenida animada */
-    .welcome {
-      font-size: 2rem;
-      background-color: #e4c1f9;
-      color: #4a4a4a;
-      padding: 20px 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      margin-bottom: 50px;
-      text-align: center;
-      animation: fadeSlideDown 1s ease-out forwards;
-      opacity: 0;
-    }
+    .video-block.clicked {
+      transform: scale(0.95) rotate(-1deg);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      filter: brightness(1.1) contrast(1.1);
+    }
 
-    /* Animación de entrada */
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .video-block::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.6s ease;
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-    /* Tarjeta evento */
-    .event-card {
-      position: relative;
-      width: 90%;
-      max-width: 420px;
-      height: 220px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 4px dashed #a3c4f3;
-      background-image: url('https://your-custom-image-url.com/image.jpg'); /* Cambia aquí */
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      transform: scale(0.95);
-      transition: transform 0.5s ease, box-shadow 0.4s ease;
-      animation: zoomFade 1.2s ease-out forwards;
-      opacity: 0;
-    }
-
-    @keyframes zoomFade {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(0.95);
-      }
-    }
-
-    /* Hover effect */
-    .event-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-    }
-
-    .event-card .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://cdn.discordapp.com/attachments/1395383683409514568/1408650317565919242/298e838833.jpg?ex=68aa8357&is=68a931d7&hm=23ac0224811c2522f1b289324d4fa61572762d65e6af253576cddf5fd1371a02');
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #444;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .event-card:hover .overlay {
-      opacity: 1;
-    }
-
-    /* Enlace */
-    a {
-      text-decoration: none;
-    }
-
-    /* Responsivo */
-    @media (max-width: 600px) {
-      .welcome {
-        font-size: 1.5rem;
-        padding: 15px 20px;
-      }
-
-      .event-card {
-        height: 180px;
-      }
-
-      .event-card .overlay {
-        font-size: 1.3rem;
-      }
-    }
-  </style>
+    .video-block.clicked::after {
+      transform: scale(1);
+    }
+  </style>
 </head>
 <body>
 
-  <div class="welcome" id="welcome">
-    ¡Bienvenido de vuelta!
-  </div>
+  <h1 id="welcome-text">Bienvenido!!</h1>
 
-  <!-- Tarjeta del evento -->
-  <a href="https://link-del-evento.com" target="_blank">
-    <div class="event-card">
-      <div class="overlay">Nombre del Evento</div>
-    </div>
-  </a>
+  <div class="video-block" id="redirect-block">
+    Ir a Parkour Wariors →
+  </div>
 
-  <script>
-    // Leer cookie
-    function getCookie(name) {
-      let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? decodeURIComponent(match[2]) : null;
-    }
+  <script>
+    // Obtener cookie por nombre
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) return decodeURIComponent(match[2]);
+      return null;
+    }
 
-    const username = getCookie('username') || 'Usuario';
-    document.getElementById('welcome').textContent = `${username}, ¡Bienvenido de vuelta!`;
-  </script>
+    // Mostrar el nombre del usuario si existe la cookie "username"
+    const username = getCookie('username');
+    const welcomeText = document.getElementById('welcome-text');
+    if (username) {
+      welcomeText.textContent = `${username}, bienvenido!!`;
+    }
+
+    // Redirección con animación
+    const block = document.getElementById('redirect-block');
+    block.addEventListener('click', () => {
+      block.classList.add('clicked');
+      setTimeout(() => {
+        window.location.href = "https://app.mcstellarstudio.com/parkour-wariors";
+      }, 2000); // 2 segundos
+    });
+  </script>
 
 </body>
 </html>
