@@ -229,12 +229,12 @@
   }
 
   function checkSession() {
-    const userEmail = getCookie("session_user");
-    if (userEmail && users[userEmail]) {
-      const redirect = users[userEmail].redirect || URL_EXITO;
-      window.location.href = redirect;
-    }
-  }
+  const userEmail = getCookie("session_user");
+  if (userEmail) {
+    window.location.href = "https://app.mcstellarstudio.com/@me";
+  }
+}
+
 
   document.addEventListener("DOMContentLoaded", () => {
     checkSession();
