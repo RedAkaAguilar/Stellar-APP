@@ -1,115 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bienvenido</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <meta charset="UTF-8">
+  <title>Cuadros Interactivos</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      box-sizing: border-box;
+      background-image: url('https://example.com/background.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: sans-serif;
+    }
 
-    body {
-      min-height: 100vh;
-      font-family: 'Outfit', sans-serif;
-      background: #fef6f6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
 
-    h1 {
-      font-size: 2rem;
-      color: #333;
-      margin-bottom: 40px;
-    }
+    .cuadro {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
 
-    .video-block {
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16 / 9;
-      background-image: url('https://images.unsplash.com/photo-1601582581597-8a3d2e7df2c2?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      border-radius: 25px;
-      border: 3px solid white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease;
-      position: relative;
-      overflow: hidden;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    }
+    .cuadro:hover {
+      transform: scale(1.03);
+    }
 
-    .video-block.clicked {
-      transform: scale(0.95) rotate(-1deg);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      filter: brightness(1.1) contrast(1.1);
-    }
+    .activo {
+      background-image: url('https://example.com/cuadro1.jpg');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      border: none;
+    }
 
-    .video-block::after {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      transform: scale(0);
-      transition: transform 0.6s ease;
-      border-radius: 50%;
-      pointer-events: none;
-    }
+    .inactivo {
+      border: 2px solid gray;
+      background: none;
+      pointer-events: none;
+    }
 
-    .video-block.clicked::after {
-      transform: scale(1);
-    }
-  </style>
+    a {
+      text-decoration: none;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
-  <h1 id="welcome-text">Bienvenido!!</h1>
-
-  <div class="video-block" id="redirect-block">
-    Ir a Parkour Wariors →
-  </div>
-
-  <script>
-    // Obtener cookie por nombre
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      if (match) return decodeURIComponent(match[2]);
-      return null;
-    }
-
-    // Mostrar el nombre del usuario si existe la cookie "username"
-    const username = getCookie('username');
-    const welcomeText = document.getElementById('welcome-text');
-    if (username) {
-      welcomeText.textContent = `${username}, bienvenido!!`;
-    }
-
-    // Redirección con animación
-    const block = document.getElementById('redirect-block');
-    block.addEventListener('click', () => {
-      block.classList.add('clicked');
-      setTimeout(() => {
-        window.location.href = "https://app.mcstellarstudio.com/parkour-wariors";
-      }, 2000); // 2 segundos
-    });
-  </script>
+  <div class="grid">
+    <a href="https://ejemplo.com/enlace1" target="_blank">
+      <div class="cuadro activo"></div>
+    </a>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+    <div class="cuadro inactivo"></div>
+  </div>
 
 </body>
 </html>
