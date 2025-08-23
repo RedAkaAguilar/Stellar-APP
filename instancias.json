@@ -1,0 +1,14 @@
+[
+  {
+    "imagenURL": "https://via.placeholder.com/800x450/89CFF0/000000?text=Evento+1",
+    "titulo": "Evento Parkour",
+    "icon": "fas fa-cube",
+    "urlInstance": "https://evento1.com"
+  },
+  {
+    "imagenURL": "https://via.placeholder.com/800x450/FFB6C1/000000?text=Evento+2",
+    "titulo": "Evento Survival",
+    "icon": "fas fa-leaf",
+    "urlInstance": "https://evento2.com"
+  }
+]
